@@ -9,8 +9,12 @@
     <div id="content"></div>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-      document.getElementById('content').innerHTML =
-      marked.parse("asmarly/README.md");
+      fetch("/asmarly/README")
+        .then(response => response.blob())
+        .then(blob => blob.text())
+        .then(markdown => {
+          document.getElementById("content").innerHTML = marked.parse(markdown);
+        });
     </script>
   </center>
 </body>
